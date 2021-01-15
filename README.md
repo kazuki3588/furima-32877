@@ -11,7 +11,7 @@
 | first_name         | string   | null: false               |
 | first_furigana     | string   | null: false               |
 | last_furigana      | string   | null: false               |
-| date               | datetime | null: false               |
+| date               | date     | null: false               |
 
 ### Association
 
@@ -43,7 +43,7 @@
 | --------- | ---------- | ------------------------------ |
 | user      | references | null: false, foreign_key: true |
 | item      | references | null: false, foreign_key: true |
-| residence | references | null: false, foreign_key: true |
+
 ### Association
 
 - belongs_to :user
