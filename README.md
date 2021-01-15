@@ -2,71 +2,68 @@
 
 ## users
 
-| Column         | Type    | Options     |
-| -------------- | ------- | ----------- |
-| nickname       | string  | null: false |
-| email          | string  | null: false |
-| last_name      | string  | null: false |
-| first_name     | string  | null: false |
-| last_name      | string  | null: false |
-| first_furigana | string  | null: false |
-| last_furigana  | string  | null: false |
-| year           | integer | null: false |
-| month          | integer | null: false |
-| date           | integer | null: false |
+| Column             | Type     | Options                   |
+| ------------------ | -------- | ------------------------- |
+| name               | string   | null: false               |
+| email              | string   | null: false, unique: true |
+| encrypted_password | string   | null: false               |
+| last_name          | string   | null: false               |
+| first_name         | string   | null: false               |
+| first_furigana     | string   | null: false               |
+| last_furigana      | string   | null: false               |
+| date               | datetime | null: false               |
 
 ### Association
 
 - has_many :items
-- has_many :user_residences
-- has_many :residences, through: :user_residences
+- has_many :orders
+
 
 ## items
 
-| Column        | Type       | Options                       |
-| ------------- | -----------| ----------------------------- |
-| item_name     | text       | null: false                   |
-| explanation   | text       | null: false                   |
-| category      | string     | null: false                   |
-| condition     | string     | null:false                    |
-| fee           | string     | null:false                    |
-| date          | string     | null:false                    |
-| price         | integer    | null:false                    |
-| image         | text       | null:false                    |
-| shipping_area | string     | null:false                    |
-| delivery_date | text       | null:false                    |
-| user_id       | references | null:false, foreign_key: true |
+| Column             | Type       | Options                        |
+| ------------------ | -----------| ------------------------------ |
+| name               | string     | null: false                    |
+| explanation        | text       | null: false                    |
+| category_id        | integer    | null: false                    |
+| condition_id       | integer    | null: false                    |
+| fee_id             | integer    | null: false                    |
+| price              | integer    | null: false                    |
+| shipping_area_id   | integer    | null: false                    |
+| delivery_date_id   |  integer   | null: false                    |
+| user               | references | null: false, foreign_key: true |
 
 ### Association
-- belongs_to :users
-- has_one :user_residences
+- belongs_to :user
+- has_one :order
 
-## user_residences
+## order
 
-| Column       | Type       | Options                       |
-| ------------ | ---------- | ----------------------------- |
-| user_id      | references | null:false, foreign_key: true |
-| item_id      | references | null:false, foreign_key: true |
-| residence_id | references | null:false, foreign_key: true |
+| Column    | Type       | Options                        |
+| --------- | ---------- | ------------------------------ |
+| user      | references | null: false, foreign_key: true |
+| item      | references | null: false, foreign_key: true |
+| residence | references | null: false, foreign_key: true |
 ### Association
 
-- belongs_to :users
-- belongs_to :items
-- belongs_to :residences
+- belongs_to :user
+- belongs_to :item
+- has_one :residence
 
 ## residences
 
-| Column        | Type      | Options     |
-| ---------     | --------- | ----------- |
-| postal_code   | integer   | null:false  |
-| prefectures   | string    | null:false  |
-| municipality  | text      | null:false  |
-| address       | string    | null:false  |
-| building_name | string    | unique:true |
-| phone_number  | integer   | null:false  |
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| postal_code      | string     | null: false                    |
+| shipping_area_id | integer    | null: false                    |
+| municipality     | text       | null: false                    |
+| address          | string     | null: false                    |
+| building_name    | string     | unique: true                   |
+| phone_number     | string     | null: false                    |
+| order            | references | null: false, foreign_key: true |
 
 ### Association
 
-- has_many :user_residences
-- hsa_many :user, through: :user_residences
+- belongs_to :order
+
 
