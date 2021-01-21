@@ -9,42 +9,6 @@ RSpec.describe User, type: :model do
       it 'name,email,password,password_confirmation,last_name,first_name,last_furigana,first_furigana,dateが存在すれば登録できる' do
         expect(@user).to be_valid
       end
-      it 'passwordとpassword_confirmationが6文字以上であれば登録できる' do
-        @user.password = 'aaaaaa35'
-        @user.password_confirmation = 'aaaaaa35'
-        expect(@user).to be_valid
-      end
-      it 'passwordとpassword_confirmationが半角英数字混合であれば登録できる' do
-        @user.password = 'bbbbbb35'
-        @user.password_confirmation = 'bbbbbb35'
-        expect(@user).to be_valid
-      end
-      it 'ユーザ本名が全角（漢字,ひらがな,カタカナ)での入力であれば登録できる' do
-        @user.last_name = '福やマ'
-        @user.first_name = '蘇うシ'
-        expect(@user).to be_valid
-      end
-      it 'ユーザ本名のフリガナが全角(カタカナ)での入力であれば登録できる' do
-        @user.last_furigana = 'フクヤマ'
-        @user.first_name = 'そうし'
-        expect(@user).to be_valid
-      end
-      it 'メールアドレスに＠が含まれていれば登録できる' do
-        @user.email = 'sousi@sousi.com'
-        expect(@user).to be_valid
-      end
-      it 'passwordとpassword_confirmationが一致であれば登録できること' do
-        @user.password = 'uuuuuu35'
-        @user.password_confirmation = 'uuuuuu35'
-        expect(@user).to be_valid
-      end
-      it '重複したemailでなければ登録できる' do
-        @user.save
-        @user.email = 'sousi@sousi.com'
-        another_user = FactoryBot.build(:user)
-        another_user.email = 'tomoki@tomoki.com'
-        expect(another_user).to be_valid
-      end
     end
     context '新規登録できない時' do
       it 'nameが空では登録できない' do
