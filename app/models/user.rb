@@ -4,7 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :name, presence: true
+  with_options presence: true do
+    validates :name
+    validates :date
+  end
   PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
   validates_format_of :password, with: PASSWORD_REGEX, message: 'Include both letters and numbers'
   with_options presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/, message: 'Full-width characters' } do
@@ -15,5 +18,4 @@ class User < ApplicationRecord
     validates :last_furigana
     validates :first_furigana
   end
-  validates :date, presence: true
 end
