@@ -18,4 +18,5 @@ class User < ApplicationRecord
     validates :last_furigana
     validates :first_furigana
   end
+  has_many :items
 end
