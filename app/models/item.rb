@@ -5,11 +5,10 @@ class Item < ApplicationRecord
     validates :image
     validates :name
     validates :explanation
-    validates :price
   end
-  PRICE_REGEX = /\A(?=.*?[300-9,999,999]\d)[300-9.999,999\d]+\z/.freeze
-  validates_format_of :price, with: PRICE_REGEX, message: 'Out of setting range'
-  validates_format_of :price, with: PRICE_REGEX, message: 'Half-width number'
+  PRICE_HALF = /\A[0-9]+\Z/
+  validates :price, presence: true, format: {with: PRICE_HALF,message: 'Half-width number'}, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: 'Out of setting range' } 
+
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :delivery_date
   belongs_to :shipping_area
