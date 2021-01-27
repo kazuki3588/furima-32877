@@ -15,7 +15,7 @@ class Item < ApplicationRecord
   belongs_to :fee
   belongs_to :condition
   belongs_to :category
-  with_options presence: {message: 'Select'} do
+  with_options numericality: { other_than: 1, message: 'Select'} do
     validates :category_id
     validates :condition_id
     validates :fee_id

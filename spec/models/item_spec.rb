@@ -26,28 +26,28 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Explanation can't be blank")
       end
-      it 'category_idが空では保存できないこと' do
-        @item.category_id = nil
+      it 'category_idの値が1では保存できないこと' do
+        @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Category Select")
       end
-      it 'condition_idが空では保存できないこと' do
-        @item.condition_id = nil
+      it 'condition_idの値が1では保存できないこと' do
+        @item.condition_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Condition Select")
       end
-      it 'fee-idが空では保存できないこと' do
-        @item.fee_id = nil
+      it 'fee_idの値が1では保存できないこと' do
+        @item.fee_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Fee Select")
       end
-      it 'shipping_area_idが空では保存できないこと' do
-        @item.shipping_area_id = nil
+      it 'shipping_area_idの値が1では保存できないこと' do
+        @item.shipping_area_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping area Select")
       end
-      it 'delivery_date_idが空では保存できないこと' do
-        @item.delivery_date_id = nil
+      it 'delivery_date_idの値が1では保存できないこと' do
+        @item.delivery_date_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Delivery date Select")
       end
@@ -56,8 +56,13 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
-      it 'priceが300未満9,999,999,999を超える値では保存できないこと' do
-        @item.price = 100
+      it 'priceが300未満では保存できないこと' do
+        @item.price = 299
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price Out of setting range")
+      end
+      it 'priceが9,999,999,999を超える値では保存できないこと' do
+        @item.price = 10000000000
         @item.valid?
         expect(@item.errors.full_messages).to include("Price Out of setting range")
       end
