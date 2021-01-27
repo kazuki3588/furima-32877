@@ -59,5 +59,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'faker'
 gem 'pry-rails'
+gem 'mini_magick'
+gem 'image_processing', '~>1.2'
+gem 'active_hash'
 
 
