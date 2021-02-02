@@ -5,7 +5,10 @@ RSpec.describe OrderResidence, type: :model do
   describe '商品購入機能' do
 
     before do
-      @order_residence = FactoryBot.build(:order_residence)
+      @user = FactoryBot.create(:user)
+      @item = FactoryBot.create(:item)
+      @order_residence = FactoryBot.build(:order_residence, user_id: @user.id, item_id: @item.id)
+      sleep 0.1
     end
 
     it '全ての値が正しく入力されていれば保存できること' do
@@ -69,6 +72,18 @@ RSpec.describe OrderResidence, type: :model do
       @order_residence.token = nil
       @order_residence.valid?
       expect(@order_residence.errors.full_messages).to include("Token can't be blank")
+    end
+
+    it "user_idが空の場合購入できない" do
+      @order_residence.user_id = nil
+      @order_residence.valid?
+      expect(@order_residence.errors.full_messages).to include("User can't be blank")
+    end
+    
+    it "item_idが空の場合購入できない" do
+      @order_residence.item_id = nil
+      @order_residence.valid?
+      expect(@order_residence.errors.full_messages).to include("Item can't be blank")
     end
 
   end
