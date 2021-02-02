@@ -50,7 +50,7 @@
 - belongs_to :item
 - has_one :residence
 
-## residences
+## residence
 
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
