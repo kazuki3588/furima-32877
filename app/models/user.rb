@@ -19,4 +19,5 @@ class User < ApplicationRecord
     validates :first_furigana
   end
   has_many :items
+  has_many :orders
 end
