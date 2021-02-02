@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:index]
-  before_action :in_advance, only: [:index, :create]
+  before_action :set_item, only: [:index, :create]
   def index
     @order_residence = OrderResidence.new
     if current_user.id == @item.user_id || @item.order != nil
@@ -35,7 +35,7 @@ class OrdersController < ApplicationController
       )
     end
     
-    def in_advance
+    def set_item
       @item = Item.find(params[:item_id])
     end
 
