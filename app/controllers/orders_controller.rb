@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:index]
+  before_action :in_advance, only: [:index, :create]
   def index
-    @item = Item.find(params[:item_id])
     @order_residence = OrderResidence.new
     if current_user.id == @item.user_id || @item.order != nil
       redirect_to root_path
@@ -11,7 +11,6 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @order_residence = OrderResidence.new(order_params)
     if @order_residence.valid?
       pay_item
@@ -35,4 +34,9 @@ class OrdersController < ApplicationController
         currency: 'jpy'
       )
     end
+    
+    def in_advance
+      @item = Item.find(params[:item_id])
+    end
+
 end

@@ -24,8 +24,8 @@ RSpec.describe OrderResidence, type: :model do
       expect(@order_residence.errors.full_messages).to include("Postal code Input correctly")
     end
 
-    it 'shipping_areaを選択してないと保存できないこと' do
-      @order_residence.shipping_area_id = nil
+    it 'shipping_areaが1(---)以外でないと登録できないこと' do
+      @order_residence.shipping_area_id = 1
       @order_residence.valid?
       expect(@order_residence.errors.full_messages).to include("Shipping area cna't be blank")
     end
@@ -58,12 +58,19 @@ RSpec.describe OrderResidence, type: :model do
       @order_residence.valid?
       expect(@order_residence.errors.full_messages).to include("Phone number Input only number")
     end
-    
+
+    it "phone_numberが英数混合では登録できないこと" do
+      @order_residence.phone_number = 'area1234567'
+      @order_residence.valid?
+      expect(@order_residence.errors.full_messages).to include("Phone number Input only number")
+    end
+
     it "tokenが空では登録できないこと" do
       @order_residence.token = nil
       @order_residence.valid?
       expect(@order_residence.errors.full_messages).to include("Token can't be blank")
     end
+
   end
 
 end
